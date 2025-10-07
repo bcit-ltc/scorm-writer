@@ -3,7 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 """
-WSGI config for qcon project.
+WSGI config for scorm_writer project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -15,6 +15,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qcon.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scorm_writer.settings')
 
 application = get_wsgi_application()

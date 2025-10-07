@@ -128,7 +128,7 @@ COPY --from=builder /opt/venv /opt/venv
 COPY --from=builder /usr/src /antlr_build/
 
 # Copy app
-COPY qcon qcon/
+COPY scorm_writer scorm_writer/
 COPY api api/
 COPY pandoc pandoc/
 COPY restapi restapi/
@@ -137,4 +137,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8000
 
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "qcon.asgi:application"]
+CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "scorm_writer.asgi:application"]

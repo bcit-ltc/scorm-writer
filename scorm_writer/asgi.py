@@ -3,7 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 """
-ASGI config for qcon project.
+ASGI config for scorm_writer project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -17,7 +17,7 @@ from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qcon.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scorm_writer.settings')
 
 django_asgi_app = get_asgi_application()
 

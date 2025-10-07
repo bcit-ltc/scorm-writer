@@ -42,7 +42,7 @@ def fix_numbering(content_images_tagged, content_txt):
                                 error_question = number_pandoc.group(1)
                                 if number_ref_alt:
                                     error_question = number_ref_alt.group(1)
-                                raise QuestionEnumerationError(f'did not match the supported qcon numberlist pattern "." or ") at question: {error_question}')
+                                raise QuestionEnumerationError(f'did not match the supported scorm-writer numberlist pattern "." or ") at question: {error_question}')
                         continue
 
                     ### FOR DEBUGGING specific line

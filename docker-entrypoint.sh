@@ -19,10 +19,10 @@ python manage.py collectstatic --noinput
 redis-server --daemonize yes
 
 >&2 echo "Starting Celery"
-celery -A qcon worker --loglevel=DEBUG --concurrency=4 -n worker1@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
-celery -A qcon worker --loglevel=DEBUG --concurrency=4 -n worker2@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
-celery -A qcon worker --loglevel=DEBUG --concurrency=4 -n worker3@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
-celery -A qcon worker --loglevel=DEBUG --concurrency=4 -n worker4@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
+celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker1@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
+celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker2@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
+celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker3@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
+celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker4@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
 
 >&2 echo "Starting Daphne/Runserver"
 exec "$@"
