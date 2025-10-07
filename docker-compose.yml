@@ -1,13 +1,12 @@
-name: qcon-api
+name: scorm-writer
 services:
-
   postgres:
     image: postgres
     environment:
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: qcon-api
+      POSTGRES_DB: scorm-writer
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d qcon-api"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d scorm-writer"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -22,7 +21,7 @@ services:
   app:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
-    image: qcon-api
+    image: scorm-writer
     platform: linux/amd64
     environment:
       DEBUG: true
@@ -30,15 +29,15 @@ services:
       ADMIN_PASSWORD: admin
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: localhost
-      POSTGRES_DB_NAME: qcon-api
+      POSTGRES_DB_NAME: scorm-writer
       POSTGRES_USER: postgres
       API_KEY: 1234567890
       DJANGO_SECRET_KEY: notveryS3cret
       GIT_TAG: 0.0.1
       IMAGE_TAG: 0.0.1
-      IMAGE_NAME: qcon-api
+      IMAGE_NAME: scorm-writer
       ELASTIC_APM_SECRET_TOKEN: test
-      ELASTIC_APM_SERVICE_NAME: qcon-api
+      ELASTIC_APM_SERVICE_NAME: scorm-writer
       ELASTIC_APM_SERVER_URL: http://localhost
       ELASTIC_APM_DISABLE_SEND: true
     volumes:
