@@ -6,56 +6,6 @@ from rest_framework import serializers
 from .models import Matching, MatchingAnswer, MatchingChoice, Ordering, QuestionLibrary, Section, Question, MultipleChoice, MultipleChoiceAnswer, TrueFalse, Fib, MultipleSelect, MultipleSelectAnswer, WrittenResponse
 from django.conf import settings
 
-
-def validate_docx_file(value):
-    if value.name.split(".")[1] != "docx":
-        raise serializers.ValidationError("not a valid word file")
-
-
-def count_errors(questionlibrary):
-    # COUNT NUMBER OF DOCUMENT ERRORS
-    doc_errorlist = DocumentError.objects.filter(document=questionlibrary)
-    questionlibrary.total_document_errors = doc_errorlist.count()
-
-    # COUNT NUMBER OF QUESTION ERRORS
-    question_list = Question.objects.filter(question_library=questionlibrary)
-    num_question_errors = 0
-    for q in question_list:
-        q_errorlist = QuestionError.objects.filter(question=q)
-        num_question_errors += q_errorlist.count()
-    questionlibrary.total_question_errors = num_question_errors
-    questionlibrary.save()
-
-
-class WordToJsonSerializer(serializers.Serializer):
-
-    temp_file = serializers.FileField(validators=[validate_docx_file], max_length=100, allow_empty_file=False, use_url=True)
-
-    randomize = serializers.BooleanField(default=False)
-
-    def create(self, validated_data):
-        newconversion = QuestionLibrary.objects.create()
-        newconversion.temp_file = validated_data.get('temp_file', validated_data)
-
-        newconversion.randomize_answer = validated_data.get('randomize', validated_data)
-
-        newconversion.main_title = newconversion.temp_file.name.split(".")[0]
-        newconversion.filter_main_title()
-        newconversion.folder_path = settings.MEDIA_ROOT + str(newconversion.id)
-        newconversion.image_path = newconversion.folder_path + settings.MEDIA_URL
-        newconversion.create_directory()
-        newconversion.save()
-
-        newconversion.create_pandocstring()
-        newconversion.save()
-        return newconversion
-
-    def update(self, instance, validated_data):
-        instance.temp_file = validated_data.get('temp_file', instance.temp_file)
-        instance.save()
-        return instance
-
-
 class JsonToScormSerializer(serializers.Serializer):
     json_data = serializers.JSONField(initial=dict)
 
