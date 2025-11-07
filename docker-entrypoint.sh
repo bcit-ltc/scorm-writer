@@ -24,5 +24,5 @@ celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker2@%h --d
 celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker3@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
 celery -A scorm_writer worker --loglevel=DEBUG --concurrency=4 -n worker4@%h --detach worker_hijack_root_logger=False worker_redirect_stdouts=True worker_redirect_stdouts_level=DEBUG
 
->&2 echo "Starting Daphne/Runserver"
+>&2 echo "Starting Gunicorn (UvicornWorker)"
 exec "$@"

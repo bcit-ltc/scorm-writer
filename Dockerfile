@@ -43,6 +43,9 @@ COPY manage.py ./
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+COPY --from=builder /root/.cache /root/.cache
+COPY --from=builder /opt/venv /opt/venv
+
 # Copy app
 COPY scorm_writer scorm_writer/
 COPY api api/
@@ -51,4 +54,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8000
 
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "scorm_writer.asgi:application"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000", "--workers", "2", "scorm_writer.asgi:application"]

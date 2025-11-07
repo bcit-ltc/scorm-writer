@@ -4,7 +4,6 @@ import re
 import subprocess
 import xml.etree.ElementTree as ET
 
-import elasticapm
 from celery import shared_task
 from celery.utils.log import get_task_logger
 
@@ -24,7 +23,6 @@ from .process.questionbuilder.writtenresponse import (build_endanswer_WR_with_li
 
 logger = logging.getLogger(__name__)
 loggercelery = get_task_logger(__name__)
-elastic_client = elasticapm.get_client()
 
 def check_inline_questiontype(question, answers, wr_answer):
     questionlibrary = question.section.question_library
@@ -181,7 +179,6 @@ def check_endanswer_questiontype(question, answers, endanswer):
 
 @shared_task()
 def parse_question(question_id, endanswer=None):
-    elastic_client.begin_transaction('parse')
 
     question = Question.objects.get(pk=question_id)
     questionlibrary = question.section.question_library
@@ -698,7 +695,6 @@ def parse_question(question_id, endanswer=None):
         logger.error(str(e))
         return "#" + str(question.number_provided) + " " + str(e)
 
-    elastic_client.end_transaction('parse')
     return "success"
 
 

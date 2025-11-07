@@ -22,7 +22,6 @@ from django.urls import path, include, re_path
 # from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from api import views
-from restapi import views
 
 urlpatterns = [
     path('', include('api.urls')),
