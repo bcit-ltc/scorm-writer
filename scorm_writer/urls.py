@@ -26,7 +26,6 @@ from restapi import views
 
 urlpatterns = [
     path('', include('api.urls')),
-    path('api/', include('restapi.urls')),
     path('', views.RootPath.as_view(), name='root')
 ]
 
