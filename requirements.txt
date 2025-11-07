@@ -3,8 +3,6 @@ djangorestframework==3.14.0
 django-extensions==3.2.1
 Pygments==2.13.0
 django-cors-headers==3.13.0
-pypandoc==1.9
-beautifulsoup4==4.11.1
 six==1.16.0
 python-dotenv==0.21.0
 channels==3.0.5
@@ -14,6 +12,3 @@ celery==5.2.7
 redis==4.3.4
 channels-redis==4.0.0
 psycopg2-binary==2.9.5
-elastic-apm==6.13.0
-jaro-winkler==2.0.3
-antlr4-tools==0.2
