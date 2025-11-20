@@ -62,7 +62,6 @@ CSRF_COOKIE_HTTPONLY = True
 # Application definition
 
 INSTALLED_APPS = [
-    'elasticapm.contrib.django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,28 +73,14 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
-    'channels',
 
     # Local Apps
-    'api',
-    'restapi'
+    'api'
 ]
 
-ELASTIC_APM = {
-# "DEBUG": True,
-# Set the required service name. Allowed characters:
-# a-z, A-Z, 0-9, -, _, and space
-'SERVICE_NAME': ELASTIC_APM_SERVICE_NAME,
-
-# Use if APM Server requires a secret token
-'SECRET_TOKEN': ELASTIC_APM_SECRET_TOKEN,
-
-# Set the custom APM Server URL (default: http://localhost:8200)
-'SERVER_URL': ELASTIC_APM_SERVER_URL,
-}
+## Elastic APM removed
 
 MIDDLEWARE = [
-    'elasticapm.contrib.django.middleware.TracingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,7 +110,7 @@ TEMPLATES = [
 
 # WSGI_APPLICATION = 'scorm_writer.wsgi.application'
 
-# Channels
+# ASGI entrypoint for HTTP-only
 ASGI_APPLICATION = 'scorm_writer.asgi.application'
 
 DATABASES = {
@@ -235,11 +220,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'custom'
         },
-        'elasticapm': {
-            'level': LOGGING_LEVEL,
-            'class': 'elasticapm.contrib.django.handlers.LoggingHandler',
-            'formatter': 'custom'
-        },
+        
         'celery': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
@@ -264,7 +245,7 @@ LOGGING = {
             'propagate': False,
         },
         'api': {
-            'handlers': ['console','console_dev','elasticapm'],
+            'handlers': ['console','console_dev'],
             'level': LOGGING_LEVEL,
             'propagate': False,
         },
@@ -296,14 +277,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
-}
+# Channels disabled (no websockets)
 
 # Celery settings
 CELERY_BROKER_URL = "redis://localhost:6379"

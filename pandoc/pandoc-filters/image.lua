@@ -1,5 +1,0 @@
--- function Image (elem)
---     if string.match(elem.src, "%.emf$") then
---         return pandoc.Image({pandoc.Str("EMF image format is NOT supported. Please replace this image with JPG or PNG format.")}, "media/broken-image.emf")
---     end
--- end

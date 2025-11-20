@@ -7,6 +7,5 @@ from . import views
 from django.conf import settings
 
 urlpatterns = [
-    path('convert', views.WordToJson.as_view(), name='WordToJson'),
     path('package', views.JsonToScorm.as_view(), name='JsonToScorm'),
 ]
